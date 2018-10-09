@@ -1,5 +1,71 @@
-$bg-color: pink;
+#app {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-body {
-  background: $bg-color;
+.image-container {
+  overflow: hidden;
+  position: relative;
+  margin: 40px 0 0;
+}
+
+#imagecontainer img {
+  opacity: 0;
+  width: 100%;
+  touch-action: none;
+}
+
+.image-bg {
+  touch-action: none;
+  pointer-events: none;
+  width: 400%;
+  height: 100%;
+  top: 0;
+  position: absolute;
+  z-index: 1;
+  background: url('/dist/img/Img3x.png') repeat-x;
+  background-size: contain;
+  transform: translateX(-38%);
+}
+
+.bar {
+  margin: 40px 0;
+}
+
+.bar-line {
+  width: 50%;
+  margin: 0 auto;
+  position: relative;
+  height: 5px;
+  background-color: #979797;
+}
+
+.bar-slider {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  bottom: -7px;
+  left: 50%;
+  border-radius: 5px;
+  background-color: #D8D8D8;
+}
+
+.values {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100px 100px;
+}
+
+.rotate-value {
+  background-color: rgba(161, 109, 25, 0.3);
+}
+
+.brightness-value {
+  background-color: rgba(161, 85, 146, 0.3);
+}
+
+.zoom-value {
+  background-color: rgba(44, 108, 161, 0.3);
 }

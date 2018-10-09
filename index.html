@@ -2,10 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WebPack Server Test Page</title>
+    <title>Пользовательский Сенсорный ввод</title>
+    <meta name="viewport" content="width=device-width">
     <link rel='stylesheet' href='dist/style.css'>
 </head>
 <body>
+<div id="app">
+    <main>
+        <div id="imagecontainer" class="image-container">
+            <img src="/dist/img/Img3x.png" alt="">
+            <div id="imageBG" class="image-bg"></div>
+        </div>
+        <div class="bar">
+            <div class="bar-line">
+                <div class="bar-slider"></div>
+            </div>
+        </div>
+        <div class="values">
+            <div class="rotate-value">
+
+            </div>
+            <div class="brightness-value">
+
+            </div>
+            <div class="zoom-value">
+
+            </div>
+        </div>
+    </main>
+</div>
+
     <script src="dist/bundle.js"></script>
 </body>
 </html>
