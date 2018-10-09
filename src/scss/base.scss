@@ -1,3 +1,9 @@
+html, body {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+
 #app {
   width: 100%;
   max-width: 1024px;
@@ -15,6 +21,7 @@
   opacity: 0;
   width: 100%;
   touch-action: none;
+  //user-select: none;
 }
 
 .image-bg {
@@ -47,7 +54,7 @@
   width: 10px;
   height: 20px;
   bottom: -7px;
-  left: 50%;
+  right: 50%;
   border-radius: 5px;
   background-color: #D8D8D8;
 }
@@ -58,8 +65,16 @@
   grid-template-rows: 100px 100px;
 }
 
-.rotate-value {
-  background-color: rgba(161, 109, 25, 0.3);
+.brightness-value, .zoom-value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.brightness-value span, .zoom-value span {
+  margin-left: 10px;
 }
 
 .brightness-value {

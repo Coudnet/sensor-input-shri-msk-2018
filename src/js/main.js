@@ -7,6 +7,9 @@ let currentTranslateX = -38;
 let currentZoom = 1;
 let currentBrightness = 1;
 
+document.body.querySelector('.zoom-value span').innerHTML = Math.round(currentZoom);
+document.body.querySelector('.brightness-value span').innerHTML = currentBrightness * 100 + '%';
+
 let currentWidth = imagecontainer.getBoundingClientRect().width; // Текущая длина контейнера с изображением. Эквивалентна углу обзора в 90 градусов
 
 // Enum для типов жестов
@@ -22,7 +25,8 @@ let GestureEnum = {
  */
 
 imagecontainer.addEventListener('pointerdown', event => {
-    if(currentGestures.length < 2) {
+    console.log('down');
+    if(currentGestures.length < 2 && !currentGestures.find(x => x.pointerId === event.pointerId)) {
         currentGestures.push({
             pointerId: event.pointerId,
             startX: event.pageX,
@@ -41,6 +45,7 @@ imagecontainer.addEventListener('pointerdown', event => {
  */
 
 imagecontainer.addEventListener('pointermove', event => {
+    if(!currentGestures.length) return;
     if(currentGestures.length === 1) {
         moveTransform(event);
     } else {
@@ -68,8 +73,9 @@ imagecontainer.addEventListener('pointermove', event => {
  * Максимальный scale - 4
  */
 function pinchTransform() {
-    const zoom = currentZoom + getVectorLengthDif() / 100; // Опредедление зума через длинну вектора от одного поинтера до другого
+    const zoom = currentZoom + getVectorLengthDif() / 1000; // Опредедление зума через длинну вектора от одного поинтера до другого
     if(zoom <= 4 && zoom >= 1) currentZoom = zoom;
+    document.body.querySelector('.zoom-value span').innerHTML = Math.round(currentZoom * 10) / 10;
     imageBG.style.transform = `translateX(${startTranslateX}%) scale(${currentZoom})`;
 }
 
@@ -85,6 +91,7 @@ function rotateTransform() {
     let bright = 0;
     if ((angle > -100 && angle < -10) || (angle < 100 && angle > 10)) bright = angle / 1000;
     if(currentBrightness + bright > 0 && currentBrightness + bright < 1) currentBrightness += bright;
+    document.body.querySelector('.brightness-value span').innerHTML = Math.round(currentBrightness * 100) + '%';;
     imageBG.style.filter = `brightness(${currentBrightness})`;
 }
 
@@ -106,8 +113,9 @@ function moveTransform(event) {
     const d = (((pageX - startX) / currentWidth) * 100) / 1.39;
     const offset = startTranslateX + d;
 
-    if(offset < 1 && offset > -73 && event.offsetX >= 0 && event.offsetX <= currentWidth) {
+    if(offset < 1 && offset > -72 && event.offsetX >= 0 && event.offsetX <= currentWidth) {
         currentTranslateX = offset;
+        document.body.querySelector('.bar-slider').style.right = -1 * (currentTranslateX * 1.39) + '%';
         imageBG.style.transform = `translateX(${offset}%) scale(${currentZoom})`;
     }
 }
@@ -238,8 +246,10 @@ function gestureEnd() {
     startTranslateX = currentTranslateX;
 }
 
-imagecontainer.addEventListener('pointerout', gestureEnd);
-imagecontainer.addEventListener('pointerleave', gestureEnd);
-imagecontainer.addEventListener('pointerup', gestureEnd);
-imagecontainer.addEventListener('pointercancel', gestureEnd);
+imagecontainer.addEventListener('pointerleave', () => {
+    gestureEnd();
+});
+imagecontainer.addEventListener('pointerup', () => {
+    gestureEnd();
+});
 
