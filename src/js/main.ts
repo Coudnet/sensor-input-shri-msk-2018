@@ -43,6 +43,8 @@ if (imagecontainer) {
      * Запись стартовых значений координат
      */
 
+    imagecontainer.addEventListener("dragstart", (event: DragEvent) => { event.preventDefault(); });
+
     imagecontainer.addEventListener("pointerdown", (event: PointerEvent): void => {
         let gesture: ICurrentGestures | null = null;
 
